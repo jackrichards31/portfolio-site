@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>
+(function () {
+  var stored = localStorage.getItem('theme');
+  if (stored === 'light' || stored === 'dark') {
+    document.documentElement.setAttribute('data-theme', stored);
+  }
+})();
+</script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Jack Richards — Software Developer</title>
@@ -20,6 +28,10 @@
     <a href="#experience">Experience</a>
     <a href="#projects">Projects</a>
     <a href="#contact">Contact</a>
+    <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+      <span class="icon-light" aria-hidden="true">&#9728;</span>
+      <span class="icon-dark" aria-hidden="true">&#9789;</span>
+    </button>
   </div>
 </nav>
 
@@ -251,5 +263,23 @@
   <p class="footer-copy">Jack Richards · New York, NY</p>
 </footer>
 
+<script>
+(function () {
+  var toggle = document.getElementById('theme-toggle');
+  var mql = window.matchMedia('(prefers-color-scheme: dark)');
+
+  function currentTheme() {
+    var stored = localStorage.getItem('theme');
+    if (stored === 'light' || stored === 'dark') return stored;
+    return mql.matches ? 'dark' : 'light';
+  }
+
+  toggle.addEventListener('click', function () {
+    var next = currentTheme() === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+})();
+</script>
 </body>
 </html>

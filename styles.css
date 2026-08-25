@@ -8,9 +8,49 @@
   --accent-deep: #993556;
   --accent-badge-bg: #4B1528;
   --accent-badge-text: #F4C0D1;
+  --surface: #FFFFFF;
+  --surface-alt: #FFF9FB;
+  --shadow: rgba(30, 29, 26, 0.16);
   --font-display: 'Fraunces', Georgia, serif;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --radius: 6px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1C1712;
+    --ink: #F2EAE0;
+    --ink-soft: #C7BBAE;
+    --muted: #8F8377;
+    --hairline: #362E26;
+    --accent: #E68EA8;
+    --accent-deep: #F2A9BE;
+    --accent-badge-bg: #3D1B28;
+    --accent-badge-text: #F2A9BE;
+    --surface: #241D16;
+    --surface-alt: #2B2119;
+    --shadow: rgba(0, 0, 0, 0.45);
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #1C1712;
+  --ink: #F2EAE0;
+  --ink-soft: #C7BBAE;
+  --muted: #8F8377;
+  --hairline: #362E26;
+  --accent: #E68EA8;
+  --accent-deep: #F2A9BE;
+  --accent-badge-bg: #3D1B28;
+  --accent-badge-text: #F2A9BE;
+  --surface: #241D16;
+  --surface-alt: #2B2119;
+  --shadow: rgba(0, 0, 0, 0.45);
+}
+
+html { transition: none; }
+body, .nav, .project-card, .tag, .popup-card, button.tag-popup {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 * { box-sizing: border-box; }
@@ -42,7 +82,7 @@ a:focus-visible, button:focus-visible {
   justify-content: space-between;
   align-items: center;
   padding: 1.25rem clamp(1.5rem, 6vw, 4rem);
-  background: rgba(247, 245, 240, 0.9);
+  background: color-mix(in srgb, var(--bg) 90%, transparent);
   backdrop-filter: blur(6px);
   border-bottom: 1px solid var(--hairline);
 }
@@ -66,6 +106,33 @@ a:focus-visible, button:focus-visible {
 }
 
 .nav-links a:hover { color: var(--accent-deep); }
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  margin-left: clamp(0.5rem, 2vw, 1rem);
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink-soft);
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+  padding: 0;
+}
+
+.theme-toggle:hover { border-color: var(--accent-deep); color: var(--accent-deep); }
+
+.theme-toggle .icon-dark { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon-light { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon-dark { display: inline; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle .icon-light { display: none; }
+  :root:not([data-theme="light"]) .theme-toggle .icon-dark { display: inline; }
+}
 
 /* Hero */
 .hero {
@@ -272,7 +339,7 @@ h1 {
 }
 
 .project-card {
-  background: #FFFFFF;
+  background: var(--surface);
   border: 1px solid var(--hairline);
   border-radius: 12px;
   padding: 1.75rem;
@@ -368,7 +435,7 @@ h1 {
   padding: 9px 16px;
   border-radius: 999px;
   border: 1px solid var(--hairline);
-  background: #FFFFFF;
+  background: var(--surface);
   color: var(--ink);
 }
 
@@ -380,7 +447,7 @@ button.tag-popup {
   font-weight: 600;
   padding: 13px 24px;
   border: 1.5px solid var(--accent);
-  background: #FFF9FB;
+  background: var(--surface-alt);
   color: var(--accent-deep);
   transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
@@ -390,7 +457,7 @@ button.tag-popup .tag-icon { font-size: 17px; }
 .tag-group:hover .tag-popup,
 .tag-group:focus-within .tag-popup {
   border-color: var(--accent-deep);
-  background: #FFFFFF;
+  background: var(--surface);
   transform: translateY(-1px);
   box-shadow: 0 6px 16px rgba(212, 83, 126, 0.22);
 }
@@ -454,10 +521,10 @@ button.tag-popup .tag-icon { font-size: 17px; }
 .popup-card {
   position: relative;
   padding: 16px;
-  background: #FFFFFF;
+  background: var(--surface);
   border: 1px solid var(--hairline);
   border-radius: 14px;
-  box-shadow: 0 20px 40px rgba(30, 29, 26, 0.16);
+  box-shadow: 0 20px 40px var(--shadow);
   transform: translateY(-6px);
   transition: transform 0.18s ease;
 }
@@ -474,7 +541,7 @@ button.tag-popup .tag-icon { font-size: 17px; }
   left: 50%;
   width: 12px;
   height: 12px;
-  background: #FFFFFF;
+  background: var(--surface);
   border-left: 1px solid var(--hairline);
   border-top: 1px solid var(--hairline);
   transform: translateX(-50%) rotate(45deg);
@@ -556,7 +623,7 @@ button.tag-popup .tag-icon { font-size: 17px; }
 
 .stamp:hover, .stamp:focus-visible {
   border-color: var(--accent);
-  background: #FFF9FB;
+  background: var(--surface-alt);
   transform: rotate(0deg) scale(1.06);
   box-shadow: 0 8px 18px rgba(212, 83, 126, 0.16);
   outline: none;
