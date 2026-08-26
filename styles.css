@@ -328,8 +328,19 @@ h1 {
 .project-stack {
   font-size: 12.5px;
   color: var(--muted);
-  margin: 0;
+  margin: 0 0 1rem;
 }
+
+.project-link {
+  display: inline-block;
+  font-size: 13.5px;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--accent-deep);
+  border-bottom: 1px solid transparent;
+}
+
+.project-link:hover { border-bottom-color: var(--accent-deep); }
 
 .status-badge {
   display: inline-block;
