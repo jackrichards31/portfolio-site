@@ -173,6 +173,10 @@ h1 {
   margin: 0 0 1.25rem;
 }
 
+.hero-name {
+  font-size: clamp(2.8rem, 8vw, 4.8rem);
+}
+
 .badge {
   display: inline-block;
   background: var(--accent-badge-bg);
@@ -245,43 +249,6 @@ h1 {
   text-transform: uppercase;
   color: var(--accent-deep);
   margin: 0 0 2rem;
-}
-
-/* About */
-.about-grid {
-  display: grid;
-  grid-template-columns: 1.3fr 1fr;
-  gap: clamp(2rem, 5vw, 4rem);
-}
-
-.about-text p {
-  color: var(--ink-soft);
-  font-size: 16px;
-  margin: 0 0 1.25rem;
-}
-
-.about-facts {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.fact-label {
-  font-size: 12px;
-  color: var(--muted);
-  margin: 0 0 4px;
-}
-
-.fact-value {
-  font-size: 15px;
-  font-weight: 500;
-  margin: 0;
-}
-
-.fact-sub {
-  font-size: 13px;
-  color: var(--ink-soft);
-  margin: 4px 0 0;
 }
 
 /* Experience timeline */
@@ -374,6 +341,25 @@ h1 {
 .status-progress {
   background: #FAEEDA;
   color: #854F0B;
+}
+
+.project-card-placeholder {
+  background: transparent;
+  border: 1px dashed var(--hairline);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100%;
+}
+
+.project-card-placeholder h3 {
+  color: var(--muted);
+  margin-top: 0;
+}
+
+.project-card-placeholder .project-desc {
+  color: var(--muted);
+  margin: 0;
 }
 
 .earlier-label {
@@ -661,12 +647,6 @@ button.tag-popup .tag-icon { font-size: 17px; }
   margin: 8px 0 0;
 }
 
-@media (max-width: 480px) {
-  .tag-popup-panel { width: 240px; }
-  .tag-popup-panel-wide { width: min(88vw, 340px); }
-  .stamp { flex-basis: calc(33.333% - 7px); }
-}
-
 /* Footer */
 .footer {
   padding: clamp(3rem, 8vw, 5rem) clamp(1.5rem, 6vw, 4rem) 4rem;
@@ -712,10 +692,40 @@ button.tag-popup .tag-icon { font-size: 17px; }
 
 /* Responsive */
 @media (max-width: 720px) {
-  .about-grid { grid-template-columns: 1fr; }
   .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; }
   .nav-links { gap: 1rem; }
   .nav-links a { font-size: 13px; }
+
+  /* Hover-to-reveal doesn't exist on touch, so the "Elsewhere" popups
+     become always-open cards stacked in normal flow instead of
+     absolutely-positioned overlays anchored to the trigger button. */
+  .tags-wrap { flex-direction: column; align-items: stretch; gap: 0; }
+  .tag-group { display: block; margin-bottom: 14px; }
+  .tag-group::after { display: none; }
+  button.tag-popup { width: 100%; cursor: default; }
+  .tag-group:hover .tag-popup,
+  .tag-group:focus-within .tag-popup { transform: none; box-shadow: none; }
+
+  .tag-popup-panel,
+  .tag-popup-panel-right,
+  .tag-popup-panel-wide {
+    position: static;
+    width: 100%;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    padding-top: 10px;
+  }
+
+  .popup-card,
+  .tag-group:hover .popup-card,
+  .tag-group:focus-within .popup-card {
+    transform: none;
+  }
+
+  .popup-card::before { display: none; }
+  .stamp { flex-basis: calc(33.333% - 7px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
