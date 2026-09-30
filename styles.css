@@ -13,7 +13,7 @@
   --shadow: rgba(30, 29, 26, 0.16);
   --font-display: 'Fraunces', Georgia, serif;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --radius: 6px;
+  --radius: 3px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -115,7 +115,7 @@ a:focus-visible, button:focus-visible {
   height: 34px;
   margin-left: clamp(0.5rem, 2vw, 1rem);
   border: 1px solid var(--hairline);
-  border-radius: 999px;
+  border-radius: var(--radius);
   background: var(--surface);
   color: var(--ink-soft);
   cursor: pointer;
@@ -308,7 +308,7 @@ h1 {
 .project-card {
   background: var(--surface);
   border: 1px solid var(--hairline);
-  border-radius: 12px;
+  border-radius: var(--radius);
   padding: 1.75rem;
   max-width: 420px;
 }
@@ -431,7 +431,7 @@ h1 {
   font-size: 14px;
   font-weight: 500;
   padding: 9px 16px;
-  border-radius: 999px;
+  border-radius: var(--radius);
   border: 1px solid var(--hairline);
   background: var(--surface);
   color: var(--ink);
@@ -521,7 +521,7 @@ button.tag-popup .tag-icon { font-size: 17px; }
   padding: 16px;
   background: var(--surface);
   border: 1px solid var(--hairline);
-  border-radius: 14px;
+  border-radius: var(--radius);
   box-shadow: 0 20px 40px var(--shadow);
   transform: translateY(-6px);
   transition: transform 0.18s ease;
@@ -561,7 +561,7 @@ button.tag-popup .tag-icon { font-size: 17px; }
   display: block;
   break-inside: avoid;
   margin-bottom: 8px;
-  border-radius: 8px;
+  border-radius: 2px;
   overflow: hidden;
   background: var(--hairline);
 }
@@ -607,11 +607,10 @@ button.tag-popup .tag-icon { font-size: 17px; }
   flex: 0 0 calc(25% - 7.5px);
   position: relative;
   border: 1px solid var(--hairline);
-  border-radius: 10px;
+  border-radius: 2px;
   padding: 12px 4px 10px;
   text-align: center;
   background: var(--bg);
-  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
 }
 
 .stamp:nth-child(4n+1) { transform: rotate(-1.2deg); }
@@ -619,18 +618,10 @@ button.tag-popup .tag-icon { font-size: 17px; }
 .stamp:nth-child(4n+3) { transform: rotate(-0.5deg); }
 .stamp:nth-child(4n)   { transform: rotate(1deg); }
 
-.stamp:hover, .stamp:focus-visible {
-  border-color: var(--accent);
-  background: var(--surface-alt);
-  transform: rotate(0deg) scale(1.06);
-  box-shadow: 0 8px 18px rgba(212, 83, 126, 0.16);
-  outline: none;
-}
-
 .stamp-flag {
   width: 34px;
   height: 25px;
-  border-radius: 3px;
+  border-radius: 1px;
   display: block;
   margin: 0 auto 8px;
   background-size: cover;
@@ -645,11 +636,6 @@ button.tag-popup .tag-icon { font-size: 17px; }
   letter-spacing: 0.01em;
   color: var(--ink-soft);
   margin: 0;
-}
-
-.stamp:hover .stamp-country,
-.stamp:focus-visible .stamp-country {
-  color: var(--accent-deep);
 }
 
 .popup-caption {
@@ -714,7 +700,9 @@ button.tag-popup .tag-icon { font-size: 17px; }
   .tags-wrap { flex-direction: column; align-items: stretch; gap: 0; }
   .tag-group { display: block; margin-bottom: 14px; }
   .tag-group::after { display: none; }
-  button.tag-popup { width: 100%; cursor: default; }
+  button.tag-popup { width: 100%; }
+  button.tag-popup::after { content: "+"; margin-left: auto; font-size: 18px; font-weight: 400; line-height: 1; }
+  .tag-group.is-open button.tag-popup::after { content: "\2212"; }
   .tag-group:hover .tag-popup,
   .tag-group:focus-within .tag-popup { transform: none; box-shadow: none; }
 
@@ -724,10 +712,15 @@ button.tag-popup .tag-icon { font-size: 17px; }
     position: static;
     width: 100%;
     transform: none;
+    display: none;
+    padding-top: 10px;
+  }
+
+  .tag-group.is-open .tag-popup-panel {
+    display: block;
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
-    padding-top: 10px;
   }
 
   .popup-card,

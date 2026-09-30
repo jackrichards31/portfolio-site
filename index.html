@@ -127,25 +127,25 @@
 
   <div class="tags-wrap">
     <div class="tag-group">
-      <button type="button" class="tag tag-popup">
+      <button type="button" class="tag tag-popup" aria-expanded="false">
         <span class="tag-icon" aria-hidden="true">🌍</span> Travel
       </button>
       <div class="tag-popup-panel tag-popup-panel-wide">
         <div class="popup-card">
           <div class="stamp-grid">
-            <div class="stamp" tabindex="0"><span class="fi fi-au stamp-flag" aria-hidden="true"></span><p class="stamp-country">Australia</p></div>
-            <div class="stamp" tabindex="0"><span class="fi fi-tz stamp-flag" aria-hidden="true"></span><p class="stamp-country">Tanzania</p></div>
-            <div class="stamp" tabindex="0"><span class="fi fi-vn stamp-flag" aria-hidden="true"></span><p class="stamp-country">Vietnam</p></div>
-            <div class="stamp" tabindex="0"><span class="fi fi-th stamp-flag" aria-hidden="true"></span><p class="stamp-country">Thailand</p></div>
-            <div class="stamp" tabindex="0"><span class="fi fi-pe stamp-flag" aria-hidden="true"></span><p class="stamp-country">Peru</p></div>
-            <div class="stamp" tabindex="0"><span class="fi fi-it stamp-flag" aria-hidden="true"></span><p class="stamp-country">Italy</p></div>
-            <div class="stamp" tabindex="0"><span class="fi fi-de stamp-flag" aria-hidden="true"></span><p class="stamp-country">Germany</p></div>
-            <div class="stamp" tabindex="0"><span class="fi fi-es stamp-flag" aria-hidden="true"></span><p class="stamp-country">Spain</p></div>
-            <div class="stamp" tabindex="0"><span class="fi fi-mx stamp-flag" aria-hidden="true"></span><p class="stamp-country">Mexico</p></div>
-            <div class="stamp" tabindex="0"><span class="fi fi-ca stamp-flag" aria-hidden="true"></span><p class="stamp-country">Canada</p></div>
-            <div class="stamp" tabindex="0"><span class="fi fi-fr stamp-flag" aria-hidden="true"></span><p class="stamp-country">France</p></div>
-            <div class="stamp" tabindex="0"><span class="fi fi-ch stamp-flag" aria-hidden="true"></span><p class="stamp-country">Switzerland</p></div>
-            <div class="stamp" tabindex="0"><span class="fi fi-nl stamp-flag" aria-hidden="true"></span><p class="stamp-country">Netherlands</p></div>
+            <div class="stamp"><span class="fi fi-au stamp-flag" aria-hidden="true"></span><p class="stamp-country">Australia</p></div>
+            <div class="stamp"><span class="fi fi-tz stamp-flag" aria-hidden="true"></span><p class="stamp-country">Tanzania</p></div>
+            <div class="stamp"><span class="fi fi-vn stamp-flag" aria-hidden="true"></span><p class="stamp-country">Vietnam</p></div>
+            <div class="stamp"><span class="fi fi-th stamp-flag" aria-hidden="true"></span><p class="stamp-country">Thailand</p></div>
+            <div class="stamp"><span class="fi fi-pe stamp-flag" aria-hidden="true"></span><p class="stamp-country">Peru</p></div>
+            <div class="stamp"><span class="fi fi-it stamp-flag" aria-hidden="true"></span><p class="stamp-country">Italy</p></div>
+            <div class="stamp"><span class="fi fi-de stamp-flag" aria-hidden="true"></span><p class="stamp-country">Germany</p></div>
+            <div class="stamp"><span class="fi fi-es stamp-flag" aria-hidden="true"></span><p class="stamp-country">Spain</p></div>
+            <div class="stamp"><span class="fi fi-mx stamp-flag" aria-hidden="true"></span><p class="stamp-country">Mexico</p></div>
+            <div class="stamp"><span class="fi fi-ca stamp-flag" aria-hidden="true"></span><p class="stamp-country">Canada</p></div>
+            <div class="stamp"><span class="fi fi-fr stamp-flag" aria-hidden="true"></span><p class="stamp-country">France</p></div>
+            <div class="stamp"><span class="fi fi-ch stamp-flag" aria-hidden="true"></span><p class="stamp-country">Switzerland</p></div>
+            <div class="stamp"><span class="fi fi-nl stamp-flag" aria-hidden="true"></span><p class="stamp-country">Netherlands</p></div>
           </div>
           <p class="popup-caption">13 countries and counting</p>
         </div>
@@ -153,7 +153,7 @@
     </div>
 
     <div class="tag-group">
-      <button type="button" class="tag tag-popup">
+      <button type="button" class="tag tag-popup" aria-expanded="false">
         <span class="tag-icon" aria-hidden="true">🏈</span> Sports
       </button>
       <div class="tag-popup-panel tag-popup-panel-wide">
@@ -182,7 +182,7 @@
     </div>
 
     <div class="tag-group">
-      <button type="button" class="tag tag-popup">
+      <button type="button" class="tag tag-popup" aria-expanded="false">
         <span class="tag-icon" aria-hidden="true">🏔️</span> Outdoors
       </button>
       <div class="tag-popup-panel tag-popup-panel-wide tag-popup-panel-right">
@@ -253,6 +253,17 @@
     var next = currentTheme() === 'dark' ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('theme', next);
+  });
+})();
+
+// On mobile the Elsewhere sections start collapsed; tapping the button toggles them.
+(function () {
+  document.querySelectorAll('.tag-group').forEach(function (group) {
+    var btn = group.querySelector('.tag-popup');
+    btn.addEventListener('click', function () {
+      var open = group.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
   });
 })();
 </script>
